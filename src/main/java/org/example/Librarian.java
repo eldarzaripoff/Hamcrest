@@ -1,5 +1,5 @@
 package org.example;
 
 public interface Librarian extends General {
-    void orderBook(Supplier supplier);
+    int orderBook(Supplier supplier);
 }

@@ -8,8 +8,14 @@ public class Bookkeeper extends User implements Librarian, Administrator {
         this.bookCount = bookCount;
         this.name = name;
     }
+
     @Override
-    public void orderBook(Supplier supplier) {
+    public int getBookCount() {
+        return bookCount;
+    }
+
+    @Override
+    public int orderBook(Supplier supplier) {
         this.bookCount++;
         int bookNum = supplier.getBookCount();
         bookNum--;
@@ -17,7 +23,7 @@ public class Bookkeeper extends User implements Librarian, Administrator {
         System.out.println(supplier + " has " + bookNum + " books");
         System.out.println("Librarian " + this.name + " has " + this.bookCount + " books");
         System.out.println(" ");
-        supplier.setBookCount(bookNum);
+        return bookNum;
     }
 
     @Override
@@ -27,7 +33,12 @@ public class Bookkeeper extends User implements Librarian, Administrator {
     }
 
     @Override
-    public void giveBook(Reader reader) {
+    public void setBookCount(int bookCount) {
+        this.bookCount = bookCount;
+    }
+
+    @Override
+    public int giveBook(Reader reader) {
         this.bookCount--;
         int bookNum = reader.getBookCount();
         bookNum++;
@@ -35,7 +46,6 @@ public class Bookkeeper extends User implements Librarian, Administrator {
         System.out.println(reader + " has " + bookNum + " books");
         System.out.println("Administrator " + this.name + " has " + this.bookCount + " books");
         System.out.println(" ");
-        reader.setBookCount(bookNum);
+        return bookNum;
     }
-
 }

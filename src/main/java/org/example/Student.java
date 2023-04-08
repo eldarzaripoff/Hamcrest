@@ -11,19 +11,31 @@ public class Student extends User implements Reader, Supplier {
 
 
     @Override
-    public void takeBook(Administrator administrator) {
-        int bookNum = administrator.getBookCount();
-        bookNum--;
-        this.bookCount++;
-        System.out.println("Reader " + this.name + " took the book '1942' from Administrator " + administrator);
-        System.out.println(administrator + " has " + bookNum + " books");
-        System.out.println("Reader " + this.name + " has " + this.bookCount + " books");
-        System.out.println(" ");
-        administrator.setBookCount(bookNum);
+    public int getBookCount() {
+        return bookCount;
     }
 
     @Override
-    public void bringBookback(Administrator administrator) {
+    public void setBookCount(int bookCount) {
+        this.bookCount = bookCount;
+    }
+
+    @Override
+    public int takeBook(Administrator administrator) {
+        int bookNum = administrator.getBookCount();
+        bookNum--;
+        administrator.setBookCount(bookNum);
+        this.bookCount++;
+        System.out.println("Reader " + this.name + " took the book '1942' from Administrator " + administrator);
+        System.out.println(administrator + " has " + administrator.getBookCount() + " books");
+        System.out.println("Reader " + this.name + " has " + this.bookCount + " books");
+        System.out.println(" ");
+
+        return administrator.getBookCount();
+    }
+
+    @Override
+    public int bringBookback(Administrator administrator) {
         int bookNum = administrator.getBookCount();
         bookNum++;
         this.bookCount--;
@@ -31,19 +43,22 @@ public class Student extends User implements Reader, Supplier {
         System.out.println((administrator + " has " + bookNum) + " books");
         System.out.println("Reader " + this.name + " has " + this.bookCount + " books");
         System.out.println(" ");
-        administrator.setBookCount(bookNum);
+
+        return bookNum;
     }
 
     @Override
-    public void bringNewBook(Librarian librarian) {
+    public int bringNewBook(Librarian librarian) {
+        this.bookCount--;
         int bookNum = librarian.getBookCount();
         bookNum++;
-        this.bookCount--;
+
         System.out.println("Supplier " + this.name + " brought a new book to Librarian " + librarian);
         System.out.println((librarian + " has " + bookNum + " books"));
         System.out.println("Supplier " + this.name + " has " + this.bookCount + " books");
         System.out.println(" ");
-        librarian.setBookCount(bookNum);
+
+        return bookNum;
     }
 
 
